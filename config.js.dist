@@ -1,0 +1,7 @@
+module.exports = {
+    accounts: [], // add accounts
+    key: {
+        pk: '', // set exported private key
+        pw: '' // set used password for export
+    }
+}
