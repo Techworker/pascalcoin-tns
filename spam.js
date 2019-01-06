@@ -1,14 +1,23 @@
 const RPCClient = require('pascalcoin/src/RPC/Client');
+const Executor = require('pascalcoin/src/RPC/Executor');
+const Caller = require('pascalcoin/src/RPC/Caller');
 const Transaction = require('pascalcoin/src/Operation/Transaction');
 const OperationsBuilder = require('pascalcoin/src/Operation/OperationsBuilder');
 const KeyPair = require('pascalcoin/src/Keys/KeyPair');
 const Currency = require('pascalcoin/src/Types/Currency');
 
-// rpc client
-const rpc = RPCClient.factory('http://127.0.0.1:4103');
-
 // read config
 const config = require(__dirname + '/config.js');
+
+// rpc client
+//const rpc = RPCClient.factory('http://127.0.0.1:4103');
+const rpc = new RPCClient(
+    new Executor(
+        new Caller('http://127.0.0.1:4103'),
+        config.accounts.length * 5
+    ),
+);
+
 
 // create keypair to sign in node
 const kp = KeyPair.fromEncryptedPrivateKey(config.key.pk, config.key.pw);
